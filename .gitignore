@@ -1,0 +1,11 @@
+.idea/
+__pycache__/
+venv/
+.vscode
+.env
+media/
+*.sqlite3
+dundio/tst.py
+tmp/
+notes.txt
+locale/

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static i18n %}
+    <main class="main">
+        <section class="b-page-header">
+            <div class="page-header-content">
+                <svg aria-hidden="true" class="stroller-icon">
+                    <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#category_icon_1"></use>
+                </svg>
+                <div class="breadcrumbs">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Начало</a></li>
+                        <li><a href="#">Моят профил</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="wrapper">
+            <div class="cols cols-no-gutter profile-container">
+                <div class="col col3of12">
+
+                    {% include 'users/partials/_left_bar.html' %}
+
+                </div>
+                <div class="col col9of12">
+                    <div class="c-tab-edit-content has-flag">
+
+                        {% include 'users/partials/_edit_pass_form.html' %}
+
+                        <form action="{% url 'my-profile' %}" method="POST" class="form-edit-business-acc">
+                            {% csrf_token %}
+                            <h3 class="title">Информация за фирмата</h3>
+                            <div class="field field-input">
+                                <div class="form-row">
+                                    <h6 style="color: red">{{ form.full_name.errors }}</h6>
+                                    <input type="text" name="full_name" placeholder="Име на юридическото лице"
+                                           value="{{ form.full_name.value }}">
+                                </div>
+                                <div class="form-row">
+                                    <h6 style="color: red">{{ form.address.errors }}</h6>
+                                    <input type="text" name="address" placeholder="Адрес по данъчна регистрация"
+                                           value="{{ form.address.value }}">
+                                </div>
+                                <div class="form-row">
+                                    <h6 style="color: red">{{ form.mol.errors }}</h6>
+                                    <input type="text" name="mol" placeholder="МОЛ"
+                                           value="{{ form.mol.value }}">
+                                </div>
+                                <div class="form-row">
+                                    <h6 style="color: red">{{ form.eik.errors }}</h6>
+                                    <input type="text" name="eik" placeholder="ЕИК" value="{{ form.eik.value }}">
+                                </div>
+                                <div class="form-row">
+                                    <h6 style="color: red">{{ form.dds.errors }}</h6>
+                                    <input type="text" name="dds" placeholder="ДДС номер"
+                                           value="{{ form.dds.value }}">
+                                </div>
+                            </div>
+                            <h3 class="title">Лице за контакт</h3>
+                            <div class="field field-input">
+                                <div class="form-row">
+                                    <h6 style="color: red">{{ form.contact_person.errors }}</h6>
+                                    <input type="text" name="contact_person" placeholder="Имена"
+                                           value="{{ form.contact_person.value }}">
+                                </div>
+                                <div class="form-row">
+                                    <h6 style="color: red">{{ form.email.errors }}</h6>
+                                    <input type="email" name="email" placeholder="И-мейл"
+                                           value="{{ form.email.value }}">
+                                </div>
+                                <div class="form-row">
+                                    <h6 style="color: red">{{ form.phone_number.errors }}</h6>
+                                    <input type="text" name="phone_number" placeholder="Телефон за връзка"
+                                           value="{{ form.phone_number.value }}">
+                                </div>
+                                <div class="form-row">
+                                    <h6 style="color: red">{{ form.dundio_club_card.errors }}</h6>
+                                    <input type="text" name="dundio_club_card" placeholder="Номер на карта Dundio CLUB"
+                                           value="{{ form.dundio_club_card.value }}">
+                                </div>
+                            </div>
+
+                            {% include 'users/partials/_delivery_addresses_divs.html' %}
+
+                            <div class="field field-input clearfix">
+                                <button type="reset" class="btn btn-continue">Отмени</button>
+                                <button type="submit" name="editUserForm" class="btn btn-finish">Запази</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    {% include 'users/partials/_order_history.html' %}
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% load static i18n %}
+<div class="nav-profile">
+
+    <h3 class="title">{% trans 'Моят профил' %}</h3>
+
+    <div class="profile-tab clearfix has-flag" id="edit_profile">
+        <svg aria-hidden="true" class="tab-icon">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#edit_icon"></use>
+        </svg>
+        <span>{% trans 'Редактирай' %}</span>
+        <svg aria-hidden="true" class="tab-right-arrow">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+        </svg>
+    </div>
+
+    <div class="profile-tab clearfix" id="order_history">
+        <svg aria-hidden="true" class="tab-icon">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#history_icon"></use>
+        </svg>
+        <span>{% trans 'История на поръчките' %}</span>
+        <svg aria-hidden="true" class="tab-right-arrow">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+        </svg>
+    </div>
+
+    <div class="profile-tab clearfix">
+        <a href="{% url 'logout' %}">
+            <svg aria-hidden="true" class="tab-icon">
+                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#logout_icon"></use>
+            </svg>
+            <a href="{% url 'logout' %}">{% trans 'Изход' %}</a>
+            <svg aria-hidden="true" class="tab-right-arrow">
+                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+            </svg>
+        </a>
+    </div>
+</div>

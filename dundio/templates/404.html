@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static i18n %}
+    <main class="main">
+        <section class="b-error-content">
+            <div class="wrapper">
+                <div class="title-container">
+                    <span>4</span>
+                    <svg aria-hidden="true" class="monster-icon">
+                        <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#monster_icon"></use>
+                    </svg>
+                    <span>4</span>
+                </div>
+                <span class="description">{% trans 'Уупс! Страницата, която търсите не може да бъде намерена!' %}</span>
+                <a href="{% url 'index' %}" class="btn btn-secondary">{% trans 'Начало' %}</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

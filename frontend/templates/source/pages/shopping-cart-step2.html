@@ -1,0 +1,75 @@
+<main class="main">
+    <section class="b-cart-step2">
+        <div class="wrapper">
+
+            <div class="c-steps-container">
+                <div class="horizontal-line-container">
+                    <span class="horizontal-line"></span>
+                </div>
+                <div class="step-nodes">
+                    <div class="step-node">
+                        <span>1</span>
+                        <span>Моята поръчка</span>
+                    </div>
+                    <div class="step-node has-flag">
+                        <span>2</span>
+                        <span>Данни за поръчката</span>
+                    </div>
+                    <div class="step-node">
+                        <span>3</span>
+                        <span>Преглед на поръчката</span>
+                    </div>
+                    <div class="step-node">
+                        <span>4</span>
+                        <span>Завършена поръчка</span>
+                    </div>
+                </div>
+            </div>
+
+            <form action="" class="form-order-details">
+                <div class="form-row">
+                    <input type="text" placeholder="Имена">
+                </div>
+                <div class="form-row">
+                    <input type="email" placeholder="E-mail">
+                </div>
+                <div class="form-row">
+                    <input type="text" placeholder="Телефон">
+                </div>
+                <div class="form-row">
+                    <input type="text" placeholder="Адрес">
+                </div>
+                <div class="form-row">
+                    <select class="has-error" name="delivery-type" id="delivery_type_js">
+                        <option value="0">Начин на доставка</option>
+                        <option value="1">Начин на доставка 1</option>
+                        <option value="2">Начин на доставка 2</option>
+                        <option value="3">Начин на доставка 3</option>
+                    </select>
+                    <svg aria-hidden="true" class="dropdown-icon">
+                        <use xlink:href="../../images/svg-sprite.svg#down_arrow_icon"></use>
+                    </svg>
+                </div>
+                <div class="form-row">
+                    <select name="payment-type" id="payment_type_js">
+                        <option value="0">Начин на плащане</option>
+                        <option value="1">Наложен платеж</option>
+                        <option value="2">Банков превод</option>
+                        <option value="3">Разсрочено плащане с Unicredit</option>
+                    </select>
+                    <svg aria-hidden="true" class="dropdown-icon">
+                        <use xlink:href="../../images/svg-sprite.svg#down_arrow_icon"></use>
+                    </svg>
+                </div>
+                <div class="form-row">
+                    <div class="choose check">
+                        <input type="checkbox" name="invoice" id="invoice">
+                        <label for="invoice">Желая да получа фактура</label>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-tertiary" value="Напред">
+            </form>
+
+        </div>
+    </section>
+</main>

@@ -1,0 +1,27 @@
+{% load static i18n %}
+<form action="{% url 'my-profile' %}" method="POST" class="form-edit-business-acc">
+    {% csrf_token %}
+    <h3 class="title">Редактиране на акаунт</h3>
+    <div class="field field-input">
+        <div class="form-row">
+            <input type="text" name="username" placeholder="Потребителско име" 
+                   value="{{ request.custom_user.username }}" readonly>
+        </div>
+        <div class="form-row">
+            <h6 style="color: red">{{ edit_pass_form.old_password.errors }}</h6>
+            <input type="password" name="old_password" placeholder="Стара Парола">
+        </div>
+        <div class="form-row">
+            <h6 style="color: red">{{ edit_pass_form.new_password.errors }}</h6>
+            <input type="password" name="new_password" placeholder="Нова парола">
+        </div>
+        <div class="form-row">
+            <h6 style="color: red">{{ edit_pass_form.re_password.errors }}</h6>
+            <input type="password" name="re_password" placeholder="Повтори парола">
+        </div>
+    </div>
+    <div class="field field-input clearfix">
+        <button type="reset" class="btn btn-continue">Отмени</button>
+        <button type="submit" name="editPassForm" class="btn btn-finish">Запази</button>
+    </div>
+</form>

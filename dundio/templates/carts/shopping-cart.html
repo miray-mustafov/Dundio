@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block content %}
+    <main class="main">
+        <div class="wrapper">
+            <section class="b-cart-content">
+                <div class="cart-product-list">
+                    <div class="cols cols-full cols-no-gutter">
+                        <div class="col col12of12">
+                            <div class="heading">
+                                <div class="c-product">
+                                    <span class="heading-text">Продукт</span>
+                                </div>
+                                <div class="c-single-price">
+                                    <span class="heading-text">Ед. цена</span>
+                                </div>
+
+                                <div class="c-quantity">
+                                    <span class="heading-text">Количество</span>
+                                </div>
+                                <div class="c-final-price">
+                                    <span class="heading-text">Крайна цена</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col12of12">
+                            <div class="content-container">
+
+                                {% for item in cart %}
+                                    <div class="content">
+                                        <div class="c-product">
+                                            <span class="heading-text">Продукт</span>
+                                            <div class="product-info">
+                                                <figure>
+                                                    <img src="{{ item.product.main_image.url }}"
+                                                         alt=""
+                                                         width="60" height="60">
+                                                </figure>
+                                                <div class="description">
+                                                    <span class="title">{{ item.product.title }}</span>
+                                                    <span class="weight">Тегло: {{ item.product.weight_in_kilograms }} кг.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="c-single-price">
+                                            <span class="heading-text">Ед. цена</span>
+                                            {% if item.product.promotional_price %}
+                                                <span class="price">{{ item.product.promotional_price }} лв.</span>
+                                            {% else %}
+                                                <span class="price">{{ item.product.price }} лв.</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="c-quantity">
+                                            <span class="heading-text">Количество</span>
+                                            <div class="quantity-input">
+                                                <span class="decrease">-</span>
+                                                <input type="number" value="{{ item.quantity }}" step="1" min="1">
+                                                <span class="increase">+</span>
+                                            </div>
+                                        </div>
+                                        <div class="c-final-price">
+                                            <span class="heading-text">Крайна цена</span>
+                                            <span class="price">{{ item.total_price }} лв.</span>
+                                        </div>
+                                        <div class="c-remove-item">
+                                            <svg aria-hidden="true" class="cross-icon" id="cross-icon"
+                                                 prodid="{{ item.product.id }}">
+                                                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#cross_icon"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cols cols-full">
+                    <div class="col col8of12">
+                        <div class="c-discount">
+                            <figure>
+                                <img src="{% get_static_prefix %}images/00_01_ShoppingCard-discount_03.png" alt=""
+                                     width="835"
+                                     height="310">
+                            </figure>
+                            <div class="club-points">
+                                <figure>
+                                    <img src="{% get_static_prefix %}images/cloud_03.png" alt="" width="250"
+                                         height="140">
+                                    <span>Вашите точки са: <b>{{ dundio_club_card.points|default:0 }}</b></span>
+                                </figure>
+                            </div>
+                            <div class="discount-content">
+                                <div class="heading">
+                                    <h3 class="title">Дундьо CLUB или промо код</h3>
+                                    <p class="description">Използвайте своята Дундьо CLUB карта или промо код и се
+                                        възползвайте от вашата отстъпка.</p>
+                                </div>
+                                {% include 'carts/partials/_add_discount_form.html' %}
+                                <p class="discount-info">*Отстъпката не се прилага върху продукти на промоция или промо
+                                    пакети, както и върху цената за доставка.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col4of12">
+                        <div class="c-price-overview">
+                            <div class="price-constructor">
+                                <div class="price-info clearfix">
+                                    <span>Сума на поръчката без намаление</span>
+                                    <div class="price-wrapper">
+                                        <span>{{ cart.get_total_price_no_discount }}</span>
+                                        <span>лв.</span>
+                                    </div>
+                                </div>
+                                <div class="price-info clearfix">
+                                    <span>Сума на поръчката след намаление</span>
+                                    <div class="price-wrapper">
+                                        <span>{{ cart.get_total_discounted_price }}</span>
+                                        <span>лв.</span>
+                                    </div>
+                                </div>
+                                <div class="price-info clearfix">
+                                    <span>Цена за доставка</span>
+                                    <div class="price-wrapper"> 
+                                        <span>{{ '5 (Hardcoded)' }}</span>
+                                        <span>лв.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="total-price-container clearfix">
+                                <span>Крайна сума с ДДС</span>
+                                <div class="price-wrapper">
+                                    <span class="price">{{ cart.get_final_price }}</span>
+                                    <span>лв.</span>
+                                </div>
+                            </div>
+                            <a href="" class="btn btn-finish">Завърши поръчката</a>
+                            <a href="javascript:history.back()" class="btn btn-continue">Продължи с пазаруването</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Select all cross icons
+            const crossIcons = document.querySelectorAll('.cross-icon');
+
+            crossIcons.forEach(function (crossIcon) {
+                crossIcon.addEventListener('click', function () {
+                    // Get the product ID from the data attribute
+                    const prod_id = this.getAttribute('prodid');
+
+                    fetch("{% url 'cart_remove' '0' %}".replace('0', prod_id), {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        },
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('{% trans 'премахнат!' %}');
+                                location.reload();  // Reload the page to reflect changes
+                            } else {
+                                alert("{% trans 'Грешка при добавянето!' %}");
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

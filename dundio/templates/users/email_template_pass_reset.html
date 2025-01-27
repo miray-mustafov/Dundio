@@ -1,0 +1,68 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Password Reset</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="margin: 0; padding: 0;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600"
+                   style="table-layout:fixed; color: #fff; padding: 25px;">
+                <tr>
+                    <td style="padding-top: 45px; padding-bottom: 8px; text-align: center;">
+                        <img src="{{ base_url }}{% get_static_prefix %}images/Logo.png" alt="dundio logo" style="width: 153px; height: 39px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0px 35px; background-image: url({{ base_url }}{% get_static_prefix %}images/Mask-Group-1.png); background-position:right top; background-repeat: no-repeat; background-color: #f4f4f4;">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                               style="table-layout:fixed; text-align: left;">
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; line-height: 1.2; padding-top: 40px;">
+                                    Здравейте,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; line-height: 1.2; padding-top: 20px;">
+                                    Получихме съобщение, че сте забравили паролата си.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; line-height: 1.2; padding-top: 40px;">
+                                    Можете лесно да я смените, като използвате следния линк:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; line-height: 1.2; padding-top: 20px;">
+                                    <a href="{{ base_url }}{% url 'reset_pass' %}?token={{ token }}&email={{ recipient_email }}">
+                                        link
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; line-height: 1.2; padding-top: 80px;">
+                                    Благодарим Ви !
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; line-height: 1.2; padding-top: 5px; padding-bottom: 50px;">
+                                    Екипът на магазин Дундьо
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                {% include 'users/partials/_email_template_footer.html' %}
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+
+</html>

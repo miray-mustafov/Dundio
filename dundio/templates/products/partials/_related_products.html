@@ -1,0 +1,50 @@
+{% load static i18n %}
+<section class="b-related-products">
+    <div class="heading-container">
+        <figure>
+            <img src="{% get_static_prefix %}images/00_04Products-title_03.png" alt="">
+            <h2 class="title">Свързани продукти</h2>
+        </figure>
+    </div>
+    <div class="products-slider">
+        <div class="boxes boxes-products">
+            {% for p in product.related_products.all %}
+                <a href="{% url 'product_details' p.slug %}" class="box box-products">
+                    <div class="add-to-cart">
+                        <svg aria-hidden="true" class="shopping-cart-icon">
+                            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#shopping_cart_icon"></use>
+                        </svg>
+                        {% if p.is_new %}
+                            <span class="add-to-cart-label">ново</span>
+                        {% endif %}
+                        {% if p.promotional_price %}
+                            <span class="add-to-cart-label isPercent">%</span>
+                        {% endif %}
+                    </div>
+                    <figure class="product-image">
+                        <img src="{{ p.main_image.url }}" alt="">
+                    </figure>
+                    <h3 class="product-title">{{ p.title }}</h3>
+                    <p class="product-description">{{ p.short_description }}</p>
+                    <span class="product-make">{{ p.producer.title }}</span>
+                    <div class="product-price clearfix">
+                        <div class="product-price">
+                            {% if p.promotional_price %}
+                                <span class="old-price has-flag">{{ p.price }}</span>
+                                <span class="current-price new-price">{{ p.promotional_price }}</span>
+                            {% else %}
+                                <span class="current-price new-price">{{ p.price }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <svg aria-hidden="true" class="prev-arrow">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#paging-arrow"></use>
+        </svg>
+        <svg aria-hidden="true" class="next-arrow">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#paging-arrow"></use>
+        </svg>
+    </div>
+</section>

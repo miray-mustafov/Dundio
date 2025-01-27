@@ -1,0 +1,91 @@
+{% load static common_tags %}
+
+<ul class="level-1">
+    {% for category_lvl_1 in categories %}
+        <li>
+            <a href="{% url 'products_list' category_lvl_1.slug %}">{{ category_lvl_1.title }}</a>
+            <span>{{ category_lvl_1.title }}</span>
+            <div class="dropdown-menu">
+                <div class="heading">
+                    <svg aria-hidden="true" class="dropdown-heading-icon">
+                        <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#{{ category_lvl_1.icon }}"></use>
+                    </svg>
+                    <a href={% url 'products_list' category_lvl_1.slug %}>{{ category_lvl_1.title }}</a>
+                </div>
+                <div class="content">
+                    <ul class="level-2">
+                        {% for category_lvl_2 in category_lvl_1|get_active_subcategories %}
+                            <li>
+                                <a href="{% url 'products_list' category_lvl_2.slug %}">{{ category_lvl_2.title }}</a>
+                            </li>
+                            <ul class="level-3">
+                                {% for category_lvl_3 in category_lvl_2|get_active_subcategories %}
+                                    <li>
+                                        <a href="{% url 'products_list' category_lvl_3.slug %}">{{ category_lvl_3.title }}</a>
+                                        <svg aria-hidden="true" class="dropdown-icon">
+                                            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+                                        </svg>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+    <li class="promo-tab is-link"> {# todo #}
+        <a href="#">Промо</a>
+        <span>Промо</span>
+        <div class="dropdown-menu">
+            <div class="heading">
+                <svg aria-hidden="true" class="dropdown-heading-icon">
+                    <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#category_icon_1"></use>
+                </svg>
+                <a href="products.html">Бебешки колички</a>
+            </div>
+            <div class="content">
+                <ul class="level-2">
+                    <li><a href="#">Бебешки колички за породени</a></li>
+                    <li><a href="#">Кошове за породено</a></li>
+                    <li><a href="#">Сенници за количка</a></li>
+                    <li><a href="#">Чанти за количка</a></li>
+                    <li><a href="#">Кенгура и ергономични раници</a></li>
+                    <li><a href="#">Маншони и ръкавици за количка</a></li>
+                    <li><a href="#">Термочувал за количка</a></li>
+                    <li><a href="#">Аксесоари</a>
+                        <ul class="level-3">
+                            <li>
+                                <svg aria-hidden="true" class="dropdown-icon">
+                                    <use xlink:href="../../images/svg-sprite.svg#down_arrow_icon"></use>
+                                </svg>
+                                <a href="#">Аксесоар 1</a>
+                            </li>
+                            <li>
+                                <svg aria-hidden="true" class="dropdown-icon">
+                                    <use xlink:href="../../images/svg-sprite.svg#down_arrow_icon"></use>
+                                </svg>
+                                <a href="#">Аксесоар 2</a>
+                            </li>
+                            <li>
+                                <svg aria-hidden="true" class="dropdown-icon">
+                                    <use xlink:href="../../images/svg-sprite.svg#down_arrow_icon"></use>
+                                </svg>
+                                <a href="#">Аксесоар 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Колички за тризнаци</a></li>
+                    <li><a href="#">Летни колички</a></li>
+                    <li><a href="#">Триколки</a></li>
+                    <li><a href="#">Колички за близнаци</a></li>
+                    <li><a href="#">Подложки за количка</a></li>
+                    <li><a href="#">Чадъри за количка</a></li>
+                    <li><a href="#">Комбинирана количка</a></li>
+                    <li><a href="#">Портбебета</a></li>
+                    <li><a href="#">Четриколка</a></li>
+                </ul>
+            </div>
+        </div>
+    </li>
+</ul>

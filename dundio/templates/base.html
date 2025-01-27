@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Clean</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% get_static_prefix %}images/Favicon_Dindio-01.png"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{% get_static_prefix %}styles/build/build.css"/>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlvoE-NOPnju-y-33J0IWcrmgcWvMz2FI" async
+            defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="{% get_static_prefix %}scripts/build/build.js"></script>
+
+</head>
+
+<body>
+<div class="container" id="js-container">
+    {% include 'common/partials/_header.html' %}
+    {% include 'common/partials/_pop-ups.html' %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% include 'common/partials/_footer.html' %}
+</div>
+</body>
+</html>

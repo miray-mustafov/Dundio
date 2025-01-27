@@ -1,0 +1,74 @@
+{% load static i18n common_tags %}
+<footer class="footer">
+    <div class="footer-container">
+        <div class="wrapper">
+
+            {% include 'common/partials/_newsletter.html' %}
+
+            <div class="footer-middle">
+                <div class="cols">
+                    {% for column, rows in footer_elements_dict.items %}
+                        <div class="col col20custom">
+                            <h3 class="title">{{ column }}</h3>
+                            <ul>
+                                {% for row in rows %}
+                                    {# simple_tag; search how to access request from template tag to access current_language #}
+                                    <li><a href="{% get_link_with_translation row.link %}">{{ row.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+
+                    <div class="col col20custom">
+                        <h3 class="title">Последвайте ни</h3>
+                        <ul>
+                            <li class="social-links">
+                                <a href="#">
+                                    <svg aria-hidden="true" class="facebook-icon">
+                                        <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#facebook_icon"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="social-links">
+                                <a href="#">
+                                    <img src="{% get_static_prefix %}images/instagram-icon.svg" class="instagram-icon"
+                                         alt="instagram icon">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copy-right-text">{% trans 'Всички права запазени' %} &copy;2024 {% trans 'ДУНДЬО' %}</p>
+                <div class="pytek-credit">
+                    <span>{% trans 'Уеб дизайн и програмиране от' %}</span>
+                    <a href="https://pytek.bg/bg/" target="_blank">
+                        <svg aria-hidden="true" class="pytek-icon">
+                            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#pytek_icon"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <svg aria-hidden="true" class="cloud-left-icon">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#cloud_left_icon"></use>
+        </svg>
+        <svg aria-hidden="true" class="cloud-right-icon">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#cloud_right_icon"></use>
+        </svg>
+        <svg aria-hidden="true" class="cloud-center-icon">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#cloud_center_icon"></use>
+        </svg>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $.cookieBar({
+                acceptText: "{% trans 'Приемам' %}",
+                message: "{% trans 'Този сайт изплозва бисквитки.' %} <a href='gdpr.html'>Lorem Ipsum</a>",
+            })
+        })
+    </script>
+</footer>

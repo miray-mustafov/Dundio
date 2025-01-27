@@ -1,0 +1,31 @@
+{% load static %}
+{% for product in products %}
+    <a href="{% url 'product_details' product.slug %}" class="box box-products">
+        <div class="add-to-cart">
+            <svg aria-hidden="true" class="shopping-cart-icon">
+                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#shopping_cart_icon"></use>
+            </svg>
+            {% if product.is_new %}
+                <span class="add-to-cart-label">ново</span>
+            {% endif %}
+        </div>
+        <figure class="product-image">
+            {% if product.main_image %}
+                <img src="{% get_media_prefix %}{{ product.main_image }}" alt="">
+            {% else %}
+                <img src="{% get_static_prefix %}images/default_img.jpg" alt="">
+            {% endif %}
+        </figure>
+        <h3 class="product-title">{{ product.title }}</h3>
+        <p class="product-description">{{ product.short_description }}</p>
+        <span class="product-make">{{ product.producer.title }}</span>
+        <div class="product-price clearfix">
+            {% if product.promotional_price %}
+                <span class="old-price has-flag">{{ product.price }}</span>
+                <span class="current-price new-price">{{ product.promotional_price }}</span>
+            {% else %}
+                <span class="current-price new-price">{{ product.price }}</span>
+            {% endif %}
+        </div>
+    </a>
+{% endfor %}

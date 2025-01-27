@@ -1,0 +1,32 @@
+{
+  "name": "frontend-workflow-automation",
+  "version": "2.1.0",
+  "description": "Frontend workflow with gulp, zurb panini and postcss.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp-cli": "^1.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-jshint": "^2.0.4",
+    "gulp-postcss": "^6.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sequence": "^0.4.6",
+    "gulp-sourcemaps": "^2.5.1",
+    "gulp-ssi": "^0.1.5",
+    "gulp-uglify": "^2.0.1",
+    "jshint": "^2.12.0",
+    "jshint-stylish": "^2.2.1",
+    "panini": "^1.7.1",
+    "postcss-import": "^9.1.0",
+    "postcss-preset-env": "^3.2.2"
+  },
+  "scripts": {
+    "start": "gulp"
+  },
+  "author": "Rumen Petrov",
+  "license": "ISC"
+}

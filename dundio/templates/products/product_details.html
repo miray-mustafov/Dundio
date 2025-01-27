@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static i18n common_tags %}
+    <main class="main">
+        <section class="b-page-header">
+            <div class="page-header-content">
+                <svg aria-hidden="true" class="stroller-icon">
+                    <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#{{ product.category.icon }}"></use>
+                </svg>
+                <div class="breadcrumbs">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Начало</a></li>
+                        {% for category_ancestor in product.category.get_ancestors %}
+                            <li>
+                                <a href="{% url 'products_list' category_ancestor.slug %}">{{ category_ancestor.title }}</a>
+                            </li>
+                        {% endfor %}
+                        <li><a href="{% url 'products_list' product.category.slug %}">{{ product.category.title }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="wrapper">
+            <section class="b-product-information">
+                <div class="cols cols-full">
+                    <div class="col col6of12">
+                        <div class="c-img-galery ">
+                            <div class="product-image-slider">
+                                {% for image in product.images.all %}
+                                    <figure>
+                                        <img src="{{ image.image.url }}" alt="img{{ forloop.counter }}">
+                                    </figure>
+                                {% endfor %}
+                            </div>
+                            <svg id="product_slider_prev" aria-hidden="true">
+                                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#paging-arrow"></use>
+                            </svg>
+                            <svg id="product_slider_next" aria-hidden="true">
+                                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#paging-arrow"></use>
+                            </svg>
+
+                        </div>
+                        <figure class="c-large-galery-img">
+                            <img src="{{ product.main_image.url }}" alt="main_image" width="420" height="420">
+                            {% if product.promotional_price %}
+                                <span class="add-to-cart-label isPercent">%</span>
+                            {% endif %}
+                        </figure>
+                    </div>
+                    <div class="col col6of12">
+                        <h2 class="product-title">{{ product.title }}</h2>
+                        {% if product.promotional_price %}
+                            <div class="availability clearfix">
+                                <span class="promo-duration isValid">Промоцията е валидна 5 дни</span>
+                                <span class="product-available isAvailable">Наличен пакет</span>
+                            </div>
+                        {% endif %}
+                        <p class="short-description">{{ product.short_description }}</p>
+                        <div class="product-price">
+                            {% if product.promotional_price %}
+                                <span class="old-price has-flag">{{ product.price }}</span>
+                                <span class="current-price">{{ product.promotional_price }}</span>
+                            {% else %}
+                                <span class="current-price">{{ product.price }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="add-quantity-container clearfix">
+                            <div class="product-size-container">
+                                <select name="product_size" id="product_size" class="product-size link-select">
+                                    <option value="size_0">Размер</option>
+                                    <option value="size_1">Размер S</option>
+                                    <option value="size_2">Размер M</option>
+                                    <option value="size_3">Размер L</option>
+                                    <option value="size_4">Размер XL</option>
+                                </select>
+                            </div>
+                            <div class="quantity-input">
+                                <span class="decrease">-</span>
+                                <input type="number" id='item_count_input' step="1" min="1" value="1">
+                                <span class="increase">+</span>
+                            </div>
+                            <button class="btn btn-primary" id="add_to_cart_btn">
+                                Добави
+                            </button>
+                        </div>
+                        <div class="cols cols-full">
+                            <div class="col col7of12">
+                                <span class="product-number">Налично количество: <mark>{{ product.available_quantity|floatformat:0 }}</mark></span>
+                                <span class="product-number">Вътрешен номер: <mark>{{ product.nomenclature_number }}</mark></span>
+                                <span class="product-unit">Мерна единица: <mark>{{ product.measure_unit }}</mark></span>
+                                <span class="product-weight">Тегло: <mark>{{ product.weight_in_kilograms }} кг.</mark></span>
+                            </div>
+                            <div class="col col5of12">
+                                <div class="socials-container">
+                                    <svg aria-hidden="true" class="social-icon-link">
+                                        <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#facebook_icon"></use>
+                                    </svg>
+                                    <svg aria-hidden="true" class="social-icon-link">
+                                        <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#viber_icon"></use>
+                                    </svg>
+                                    <svg aria-hidden="true" class="social-icon-link">
+                                        <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#email_icon"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="b-details-tabs">
+                <div class="tabs-heading-container">
+                    <span class="tab-heading description-heading has-flag">Описание</span>
+                    <span class="tab-heading characteristics-heading">Характеристики</span>
+                    <span class="tab-heading docs-heading">Прикачени документи</span>
+                    <span class="tab-heading credit-heading">Купи на кредит</span>
+                </div>
+                <div class="tabs-content-container">
+                    <div class="description-content  has-flag">
+                        <div class="richtext">
+                            {{ product.description|safe }}
+                        </div>
+                        <iframe width="100%" height="600px" src="{{ product.youtube_link }}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="characteristics-content">
+                        <span>Цват: <mark>&emsp;Бял</mark></span>
+                        <span>Възраст: <mark>&emsp;0 - 3 години</mark></span>
+                        <span>Подходящо за: <mark>&emsp;За всички деца</mark></span>
+                    </div>
+                    <div class="boxes boxes-attached-files">
+                        {% for file in product.files.all %}
+                            <a href="{{ file.file.url }}" class="box box-attached-files">
+                                <svg aria-hidden="true" class="paperclip-icon">
+                                    <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#paperclip_icon"></use>
+                                </svg>
+
+                                <p class="file-title">{{ file.file.url|takename }}</p>
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <div class="credit-content">
+                        <div class="cols cols-full cols-no-gutter">
+                            <div class="col col12of12 table-heading">
+                                <figure class="row-title">
+                                    <img src="../../images/00_02Detailed_Page_Credits-uni-credit-logo_03.png" alt="">
+                                </figure>
+                                <span class="column-value">3 месеца</span>
+                                <span class="column-value">5 месеца</span>
+                                <span class="column-value">6 месеца</span>
+                                <span class="column-value">9 месеца</span>
+                                <span class="column-value">12 месеца</span>
+                                <span class="column-value">18 месеца</span>
+                                <span class="column-value">24 месеца</span>
+                            </div>
+                            <div class="col col12of12 table-row">
+                                <span class="row-title">Вноска</span>
+                                <div class="column-value">
+                                    <span class="title">3 месеца</span>
+                                    <span class="value">137.00 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">5 месеца</span>
+                                    <span class="value">77.40 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">6 месеца</span>
+                                    <span class="value">70.30 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">9 месеца</span>
+                                    <span class="value">40.90 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">12 месеца</span>
+                                    <span class="value">30.90 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">18 месеца</span>
+                                    <span class="value">27.00 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">24 месеца</span>
+                                    <span class="value">21.00 лв.</span>
+                                </div>
+                            </div>
+                            <div class="col col12of12 table-row">
+                                <span class="row-title">ГЛП</span>
+                                <div class="column-value">
+                                    <span class="title">3 месеца</span>
+                                    <span class="value">30.00 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">5 месеца</span>
+                                    <span class="value">00.00 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">6 месеца</span>
+                                    <span class="value">30.00 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">9 месеца</span>
+                                    <span class="value">30.00 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">12 месеца</span>
+                                    <span class="value">30.00 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">18 месеца</span>
+                                    <span class="value">30.00 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">24 месеца</span>
+                                    <span class="value">30.00 %</span>
+                                </div>
+                            </div>
+                            <div class="col col12of12 table-row">
+                                <span class="row-title">ГПР</span>
+                                <div class="column-value">
+                                    <span class="title">3 месеца</span>
+                                    <span class="value">35.05 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">5 месеца</span>
+                                    <span class="value">00.00 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">6 месеца</span>
+                                    <span class="value">34.76 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">9 месеца</span>
+                                    <span class="value">34.76 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">12 месеца</span>
+                                    <span class="value">34.76 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">18 месеца</span>
+                                    <span class="value">34.76 %</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">24 месеца</span>
+                                    <span class="value">34.76 %</span>
+                                </div>
+                            </div>
+                            <div class="col col12of12 table-row">
+                                <span class="row-title">Общ размер на кредита</span>
+                                <div class="column-value">
+                                    <span class="title">3 месеца</span>
+                                    <span class="value">406.00 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">5 месеца</span>
+                                    <span class="value">387.00 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">6 месеца</span>
+                                    <span class="value">421.00 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">9 месеца</span>
+                                    <span class="value">440.00 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">12 месеца</span>
+                                    <span class="value">453.83 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">18 месеца</span>
+                                    <span class="value">486.13 лв.</span>
+                                </div>
+                                <div class="column-value">
+                                    <span class="title">24 месеца</span>
+                                    <span class="value">519.78 лв.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary">Купи на кредит</button>
+                    </div>
+                </div>
+            </section>
+            {% include 'products/partials/_freq_bought_tog.html' %}
+            {% include 'products/partials/_related_products.html' %}
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addToCartButton = document.getElementById('add_to_cart_btn');
+            const itemCountInput = document.getElementById('item_count_input');
+            const itemCount = parseInt(itemCountInput.value, 10);
+
+            addToCartButton.addEventListener('click', function () {
+                // Send an AJAX request to add the product to the cart
+                fetch("{% url 'cart_add' product.id %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        'quantity': itemCount
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('{% trans 'Продуктът е добавен в количката!' %}');
+                            location.reload()
+                        } else {
+                            alert("{% trans 'Грешка при добавянето!' %}");
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+
+    </script>
+{% endblock %}

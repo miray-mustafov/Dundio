@@ -1,0 +1,38 @@
+{% load static %}
+<form action="{% url 'products_search' %}" method="GET">
+    <input type="text" id="search" name="q" autocomplete="off" placeholder="Търсене ..." onkeyup="performSearch()">
+    <button type="submit" id="search_js">
+        <svg aria-hidden="true" class="search-icon">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#search_icon"></use>
+        </svg>
+    </button>
+    <ul id="search-results" class="search-dropdown">
+        <!-- search results will be injected here dynamically from the script -->
+    </ul>
+</form>
+
+<script>
+    function performSearch() {
+        const query = document.getElementById('search').value;
+
+        if (query.length > 2) {  // Start searching after 3 characters
+            fetch(`{% url 'products_search' %}?q=${encodeURIComponent(query)}`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('search-results').innerHTML = data.html;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during search:', error);
+                });
+        } else {
+            document.getElementById('search-results').innerHTML = '';
+        }
+    }
+</script>

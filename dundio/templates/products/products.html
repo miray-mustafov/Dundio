@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static common_tags i18n%}
+{% block content %}
+    <main class="main">
+        <section class="b-page-header">
+            <div class="page-header-content">
+                <svg aria-hidden="true" class="stroller-icon">
+                    <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#{{ category.icon }}"></use>
+                </svg>
+                <div class="breadcrumbs">
+                    <ul>
+                        <li><a href="{% url 'index' %}">{% trans 'Начало' %}</a></li>
+                        {% for category_ancestor in category_ancestors %}
+                            <li>
+                                <a href="{% url 'products_list' category_ancestor.slug %}">{{ category_ancestor.title }}</a>
+                            </li>
+                        {% endfor %}
+                        <li><a href="{% url 'products_list' category.slug %}">{{ category.title }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="b-products-content">
+            <div class="wrapper">
+                <div class="cols cols-full">
+                    <div class="col col3of12">
+                        {% include 'products/partials/_left_bar.html' %}
+                    </div>
+                    <div class="col col9of12">
+                        <div class="boxes boxes-products">
+                            {% include 'products/partials/_products_iteration.html' %}
+                        </div>
+                    </div>
+                </div>
+                {% include 'common/partials/_paging.html' %}
+            </div>
+        </section>
+    </main>
+{% endblock %}

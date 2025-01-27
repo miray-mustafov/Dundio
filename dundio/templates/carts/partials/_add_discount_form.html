@@ -1,0 +1,15 @@
+<form action="{% url 'cart_details' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="choose check">
+            <input type="checkbox" name="use_club_card" id="use-club-cart"
+                   {% if apply_discount_form.use_club_card.value %}checked{% endif %}>
+            <label for="use-club-cart">Приспадане на сумата с Дундьо клуб</label>
+        </div>
+    </div>
+    <div class="form-row">
+        <input type="text" name="card_number_or_code" placeholder="Номер на карта или промо код">
+        <button type="submit" class="btn btn-primary">Добави</button>
+        <span class="error_code"></span>
+    </div>
+</form>

@@ -1,0 +1,83 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Registration Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="margin: 0; padding: 0;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600"
+                   style="table-layout:fixed; color: #fff; padding: 25px;">
+                <tr>
+                    <td style="padding-top: 45px; padding-bottom: 5px; text-align: center;">
+                        <img src="{{ base_url }}{% get_static_prefix %}images/Logo.png" alt="dundio logo"
+                             style="width: 153px; height: 39px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0px 35px; background-image: url({{ base_url }}{% get_static_prefix%}'images/Mask-Group-1.png'); background-position:right top; background-repeat: no-repeat; background-color: #f4f4f4;">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                               style="table-layout:fixed; text-align: left;">
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; padding-top: 40px; line-height: 1.2;">
+                                    {% trans 'Добре дошли и благодарим, че се регистрирахте' %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; line-height: 1.2;">
+                                    {% trans 'В Бебешки магазин Дундьо!' %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; padding-top: 40px; line-height: 1.2;">
+                                    {% trans 'Вашият профил е вече готов. Можете да го активирате,' %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; line-height: 1.2;">
+                                    {% trans 'използвайки посочения линк:' %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; line-height: 1.2;">
+                                    <a href="{{ base_url }}{% url 'confirm_registration' %}?token={{ token }}&email={{ recipient_email }}">
+                                        link
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; padding-top: 65px; line-height: 1.2;">
+                                    {% blocktrans %}
+                                        Влизайки в системата, Вие ще имате достъп до още услуги, като преглед на
+                                        поръчките,
+                                        отпечатване на фактури, промяна на информацията на профила Ви и др.
+                                    {% endblocktrans %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; padding-top: 95px; line-height: 1.2;">
+                                    {% trans 'Благодарим Ви !' %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #6c666f; font-size: 16px; font-family: RotondaC; padding-top: 5px; padding-bottom: 55px; line-height: 1.2;">
+                                    {% trans 'Екипът на магазин Дундьо' %}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                {% include 'users/partials/_email_template_footer.html' %}
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+
+</html>

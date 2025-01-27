@@ -1,0 +1,105 @@
+{% load static i18n %}
+<div class="pop-ups-container" style="display:none;">
+    <div class="popup-overlay">
+        <div class="pop-up">
+            <div class="popup-content">
+                <figure class="cloud-img">
+                    <img src="{% get_static_prefix %}images/cloud-pop-up.svg" alt="" width="620" height="355">
+                </figure>
+
+                <div class="text-content">
+                    <h3 class="title" id="popupTitle"></h3>
+                    <span class="short-desc" id="popupMessage"></span>
+                    <a href="#" class="btn btn-tertiary" id="popupCloseButton">Ок</a>
+                </div>
+            </div>
+            <figure class="bear-img">
+                <img src="{% get_static_prefix %}images/cloud-bear.svg" alt="" width="210" height="260">
+            </figure>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to show the pop-up with custom title and message
+        function showPopup(title, message) {
+            document.getElementById('popupTitle').textContent = title;
+            document.getElementById('popupMessage').textContent = message;
+            document.querySelector('.pop-ups-container').style.display = 'block';
+            document.querySelector('.pop-up').style.display = 'block';
+        }
+        const true_msg = 'true'
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if (urlParams.get('registered') === true_msg) {
+            const title = '{% trans "Вашата регистрация беше успешна!" %}';
+            const msg = '{% trans "Ще ви изпратим e-mail с линк за потвърждение." %}';
+            showPopup(title, msg);
+        } else if (urlParams.get('confirmed') === true_msg) {
+            const title = '{% trans "Успешно потвърдена регистраця" %}';
+            const msg = '{% trans "Благодарим ви" %}';
+            showPopup(title, msg);
+        } else if (urlParams.get('passreset') === true_msg) {
+            const title = '{% trans "Успешна смяна на парола" %}';
+            const msg = '{% trans "Може да продължите" %}';
+            showPopup(title, msg);
+        }else if (urlParams.get('logedin') === true_msg) {
+            const title = '{% trans "Успешно логване" %}';
+            const msg = '{% trans "Добре дошли" %}';
+            showPopup(title, msg);
+        }else if (urlParams.get('passresetemail') === true_msg) {
+            const title = '{% trans "Успешна заявка за смяна на парола" %}';
+            const msg = '{% trans "Моля натиснете линка пратен на пощата ви" %}';
+            showPopup(title, msg);
+        }else if (urlParams.get('useredited') === true_msg) {
+            const title = '{% trans "Успешна промяна" %}';
+            const msg = '{% trans "Може да видите промените си" %}';
+            showPopup(title, msg);
+        }
+
+    // Close the popup when the "Ок" button is clicked
+        document.getElementById('popupCloseButton').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector('.pop-ups-container').style.display = 'none';
+            document.querySelector('.pop-up').style.display = 'none';
+
+            // Optionally remove the query parameter from the URL after closing the popup
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.pushState({path: newUrl}, '', newUrl);
+        });
+
+        // Handle form submissions for both newsletter and registration
+        document.getElementById('newsletterForm').addEventListener('submit', function (e) {
+            e.preventDefault();  // Prevent default form submission
+
+            const form = this;  // Get the form that was submitted
+            const actionUrl = form.getAttribute('action');  // The URL to submit the form to
+            const formData = new FormData(form);  // Collect the form data (e.g., email)
+
+            // Send the request using Fetch API
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',  // If CSRF token is needed, Django handles this with the token tag
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle different responses based on the form type
+                    if (data.status === 'already_subscribed') {
+                        showPopup('{% trans "Вече сте абонирани" %}', '{% trans "Вашият email вече съществува в нашата база данни." %}');
+                    } else if (data.status === 'subscribed') {
+                        showPopup('{% trans "Абонамент успешен" %}', '{% trans "Благодарим ви за абонирането!" %}');
+                    } else {
+                        showPopup('{% trans "Грешка" %}', '{% trans "Възникна проблем при обработката на заявката. Моля, опитайте отново." %}');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showPopup('{% trans "Грешка" %}', '{% trans "Възникна проблем при обработката на заявката. Моля, опитайте отново." %}');
+                });
+        });
+    });
+</script>

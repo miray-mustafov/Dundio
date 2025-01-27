@@ -1,0 +1,20 @@
+{% load static i18n %}
+<div class="footer-newsletter">
+    <div class="newsletter-heading">
+        <h2 class="title">{% trans 'Абонирай се за бюлетин' %}</h2>
+        <p class="short-description">{% blocktranslate %}Никога не пропускайте нашите горещи предложения! Побързайте да
+            се запишете сега като оставите електронна поща за контакт с Вас.{% endblocktranslate %}</p>
+    </div>
+    <div class="email-container">
+        <svg aria-hidden="true" class="plane-icon">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#plane_icon"></use>
+        </svg>
+        <form id="newsletterForm" action="{% url 'subscribe_newsletter' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+                <input type="email" id='email' name="email" placeholder="E-mail" required>
+                <button type="submit" class="btn btn-primary">{% trans 'Изпрати' %}</button>
+            </div>
+        </form> 
+    </div>
+</div>

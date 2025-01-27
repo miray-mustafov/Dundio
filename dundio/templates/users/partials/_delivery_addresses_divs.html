@@ -1,0 +1,24 @@
+{% load i18n %}
+<h3 class="title">Адреси за доставка</h3>
+<div class="field field-input">
+    <div class="form-row">
+        <h6 style="color: red">{{ form.delivery_address.errors }}</h6>
+        <input type="text" name="delivery_address" placeholder="Адрес"
+               value="{{ form.delivery_address.value }}">
+    </div>
+    <div class="form-row">
+        <h6 style="color: red">{{ form.populated_place.errors }}</h6>
+        <input type="text" name="populated_place" placeholder="Населено място"
+               value="{{ form.populated_place.value }}">
+    </div>
+    <div class="form-row">
+        <h6 style="color: red">{{ form.region.errors }}</h6>
+        <input type="text" name="region" placeholder="Област"
+               value="{{ form.region.value }}">
+    </div>
+    <div class="form-row">
+        <h6 style="color: red">{{ form.postal_code.errors }}</h6>
+        <input type="text" name="postal_code"
+               placeholder="Пощенски код" value="{{ form.postal_code.value }}">
+    </div>
+</div>

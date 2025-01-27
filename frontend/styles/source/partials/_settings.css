@@ -1,0 +1,26 @@
+:root {
+	--wrapper-width:         1200px;
+
+	--font-primary:          'Rotondac';
+	--font-secondary:        serif;
+	--font-size-base:        10px;
+	--font-size-primary:     16px;
+
+	--success:               #6cff8f;
+	--error:                 #ff5757;
+	--info:                  #85bbe7;
+	--warning:               #fbd391;
+
+	--color-primary:         #9b68b1;
+	--color-secondary:       #90c819;
+	--color-tertiary:		 #bae8ff;
+	--color-bg:              #ffffff; 
+	--color-neutral-lt:      #f1f1f1;
+	--color-neutral-dk:      #cbcbcb;
+	--color-selected:        #fff;
+
+	--color-titles:          #000000;
+	--color-text:            var(--color-primary);
+	--color-text-article:    var(--color-text);
+	--color-link:            var(--color-primary);
+}

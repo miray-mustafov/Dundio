@@ -1,0 +1,82 @@
+{% load i18n static%}
+<div class="c-tab-history-content">
+
+    <div class="order-container">
+        <div class="heading">
+            <div class="order-status">
+                <span class="has-flag">В процес на доставяне</span>
+                <span class="">Доставено на 03 / 04 / 2019г.</span>
+            </div>
+            <span>&numero; 348383884</span>
+        </div>
+
+        <div class="content-container"> {# todo loop these #}
+            <div class="content">
+                <div class="c-product">
+                    <div class="product-info">
+                        <figure>
+                            <img src="{% get_static_prefix %}images/00_02Detailed_Page_product-img_03.jpg" alt=""
+                                 width="60" height="60">
+                        </figure>
+                        <div class="description">
+                            <span class="title">Mima Зимен комплект - Snow White</span>
+                            <span class="weight">Тегло: 5 кг.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-single-price">
+                    <span class="price">460.50 лв. / бр.</span>
+                </div>
+                <div class="c-quantity">
+                    <div class="quantity-input">
+                        <input type="text" value="1" readonly>
+                    </div>
+                </div>
+                <div class="c-final-price">
+                    <span class="price">460.50 лв.</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="order-container">
+        <div class="heading">
+            <div class="order-status">
+                <span class="">В процес на доставяне</span>
+                <span class="has-flag">Доставено на 03 / 04 / 2019г.</span>
+            </div>
+            <span>&numero; 348383884</span>
+        </div>
+
+        <div class="content-container">{# todo loop #}
+            <div class="content">
+                <div class="c-product">
+                    <div class="product-info">
+                        <figure>
+                            <img src="{% get_static_prefix %}images/00_02Detailed_Page_product-img_03.jpg" alt=""
+                                 width="60" height="60">
+                        </figure>
+                        <div class="description">
+                            <span class="title">Mima Зимен комплект - Snow White</span>
+                            <span class="weight">Тегло: 5 кг.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-single-price">
+                    <span class="price">460.50 лв. / бр.</span>
+                </div>
+                <div class="c-quantity">
+                    <div class="quantity-input">
+                        <input type="text" value="1" readonly>
+                    </div>
+                </div>
+                <div class="c-final-price">
+                    <span class="price">460.50 лв.</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

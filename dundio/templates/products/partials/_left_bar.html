@@ -1,0 +1,165 @@
+{% load static common_tags %}
+<aside class="c-filters">
+    <form class="form-filters" action="">
+        <div class="filter-type">
+            <span>Категории</span>
+            <svg aria-hidden="true" class="dropdown-icon">
+                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+            </svg>
+        </div>
+        <div class="filter-content">
+            {% for category in category|get_active_subcategories %}
+                <div class="form-row">
+                    <div class="choose check">
+                        <input type="checkbox" name="category_item_{{ forloop.counter }}"
+                               id="category_item_{{ forloop.counter }}"
+                               placeholder=""/>
+                        <label for="category_item_{{ forloop.counter }}">{{ category.title }}</label>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="filter-type">
+            <span>Цена</span>
+            <svg aria-hidden="true" class="dropdown-icon">
+                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+            </svg>
+        </div>
+        <div class="filter-content">
+            <div class="form-row">
+                <div class="range-slider" id="range_slider"></div>
+                <p class="range-slider-values">
+                <div class="min-value-container">
+                    <label for="min-value">От:</label>
+                    <input type="text" name="min-value" class="min-value" data-value="12"
+                           id="min-value" readonly>
+                    <label for="min-value">лв</label>
+                </div>
+                <div class="max-value-container">
+                    <label for="max-value">До:</label>
+                    <input type="text" name="max-value" class="max-value" data-value="487"
+                           id="max-value" readonly>
+                    <label for="max-value">лв</label>
+                </div>
+                </p>
+            </div>
+        </div>
+        <div class="filter-type">
+            <span>Производител</span>
+            <svg aria-hidden="true" class="dropdown-icon">
+                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+            </svg>
+        </div>
+        <div class="filter-content">
+            <select name="manufactures" id="manufactures_search" multiple="multiple"
+                    class="manufactures-search">
+                {% for producer in producers %}
+                    <option value="manufacturers_{{ forloop.counter }}">{{ producer.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="filter-type">
+            <span>Пол</span>
+            <svg aria-hidden="true" class="dropdown-icon">
+                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+            </svg>
+        </div>
+        <div class="filter-content">
+            <div class="choose check">
+                <input type="checkbox" name="gender_boys" id="gender_boys" placeholder=""/>
+                <label for="gender_boys">Момчета</label>
+            </div>
+            <div class="choose check">
+                <input type="checkbox" name="gender_girls" id="gender_girls" placeholder=""/>
+                <label for="gender_girls">Момичета</label>
+            </div>
+            <div class="choose check">
+                <input type="checkbox" name="gender_a" id="gender_a" placeholder=""/>
+                <label for="gender_a">Всички деца</label>
+            </div>
+        </div>
+        <div class="filter-type">
+            <span>Цвят</span>
+            <svg aria-hidden="true" class="dropdown-icon">
+                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+            </svg>
+        </div>
+        <div class="filter-content">
+            <div class="choose check">
+                <input type="checkbox" name="color_1" id="color_1" placeholder=""/>
+                <label for="color_1">Black шаси</label>
+            </div>
+            <div class="choose check">
+                <input type="checkbox" name="color_2" id="color_2" placeholder=""/>
+                <label for="color_2">Bold Black</label>
+            </div>
+            <div class="choose check">
+                <input type="checkbox" name="color_3" id="color_3" placeholder=""/>
+                <label for="color_3">Bold Black - кафява кожа</label>
+            </div>
+            <div class="choose check">
+                <input type="checkbox" name="color_4" id="color_4" placeholder=""/>
+                <label for="color_4">Bold Standart</label>
+            </div>
+            <div class="choose check">
+                <input type="checkbox" name="color_5" id="color_5" placeholder=""/>
+                <label for="color_5">Бежов</label>
+            </div>
+            <div class="choose check">
+                <input type="checkbox" name="color_6" id="color_6" placeholder=""/>
+                <label for="color_6">Розов</label>
+            </div>
+            <div class="choose check">
+                <input type="checkbox" name="color_7" id="color_7" placeholder=""/>
+                <label for="color_7">Сив</label>
+            </div>
+            <div class="choose check">
+                <input type="checkbox" name="color_8" id="color_8" placeholder=""/>
+                <label for="color_8">Син</label>
+            </div>
+        </div>
+        <div class="filter-type">
+            <div class="choose check">
+                <input type="checkbox" name="available" id="available" placeholder=""/>
+                <label for="available">Наличност</label>
+            </div>
+        </div>
+        <div class="filter-type">
+            <div class="choose check">
+                <input type="checkbox" name="new-products" id="new-products" placeholder=""/>
+                <label for="new-products">Нови Продукти</label>
+            </div>
+        </div>
+        <div class="filter-type">
+            <div class="choose check">
+                <input type="checkbox" name="promo-products" id="promo-products"
+                       placeholder=""/>
+                <label for="promo-products">Промо</label>
+            </div>
+        </div>
+        <div class="sorting-options-container">
+            <div class="order-by">
+                <select name="order_by_js" id="order_by_js">
+                    <option value="0">Сортирай</option>
+                    <option value="1">Най - ниска цена</option>
+                    <option value="2">Най - ниска цена</option>
+                    <option value="3">Азбучен ред (А-Я)</option>
+                    <option value="4">Азбучен ред (Я-А)</option>
+                </select>
+                <svg aria-hidden="true" class="dropdown-icon">
+                    <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+                </svg>
+            </div>
+            <div class="to-show">
+                <select name="show_type_js" id="show_type_js">
+                    <option value="0">Покажи</option>
+                    <option value="2">12 реда</option>
+                    <option value="3">24 реда</option>
+                </select>
+                <svg aria-hidden="true" class="dropdown-icon">
+                    <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#down_arrow_icon"></use>
+                </svg>
+            </div>
+        </div>
+    </form>
+</aside>

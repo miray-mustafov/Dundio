@@ -1,0 +1,74 @@
+{% load static i18n %}
+<section class="b-bought-together">
+    <div class="bought-together-heading">
+        <svg aria-hidden="true" class="teddy-bear-icon">
+            <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#teddy_bear_icon"></use>
+        </svg>
+        <h2 class="title">Често купувани заедно</h2>
+    </div>
+    <div class="cols cols-full">
+        <div class="col col8of12">
+            <div class="boxes boxes-products">
+                {% for p in product.freq_bought_together.all %}
+                    <div class="box box-products">
+                        <a href="{% url 'product_details' p.slug %}" class="product-box-content">
+                            <div class="add-to-cart">
+                                <svg aria-hidden="true" class="shopping-cart-icon">
+                                    <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#shopping_cart_icon"></use>
+                                </svg>
+                                {% if p.is_new %}
+                                    <span class="add-to-cart-label">ново</span>
+                                {% endif %}
+                            </div>
+                            <figure class="product-image">
+                                <img src="{{ p.main_image.url }}"
+                                     alt="">
+                            </figure>
+                            <h3 class="product-title">{{ p.title }}</h3>
+                            <p class="product-description">{{ p.short_description }}</p>
+                            <span class="product-make">{{ p.producer.title }}</span>
+                        
+                            <div class="product-price clearfix">
+                                <div class="choose check">
+                                    <input type="checkbox" name="add-product-1" id="add-product-1">
+                                    <label for="add-product-1">Добави</label>
+                                </div>
+                                <span class="new-price">159.90лв.</span>
+                            </div>
+                            {#                            <div class="product-price clearfix">#}
+                            {#                                <div class="choose check">#}
+                            {#                                    <input type="checkbox" name="add-product-{{ forloop.counter }}" id="add-product-{{ forloop.counter }}">#}
+                            {#                                    <label for="add-product-{{ forloop.counter }}">Добави</label>#}
+                            {#                                </div>#}
+                            {#                                <div class="product-price">#}
+                            {#                                    {% if p.promotional_price %}#}
+                            {#                                        <span class="old-price has-flag">{{ p.price }}</span>#}
+                            {#                                        <span class="current-price new-price">{{ p.promotional_price }}</span>#}
+                            {#                                    {% else %}#}
+                            {#                                        <span class="current-price new-price">{{ p.price }}</span>#}
+                            {#                                    {% endif %}#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                        </a>
+                        <a href="#" class="view-all-products">
+                            <span>Виж всички</span>
+                            <svg aria-hidden="true" class="view-all-icon">
+                                <use xlink:href="{% get_static_prefix %}images/svg-sprite.svg#right_arrow_icon"></use>
+                            </svg>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col col4of12">
+            <div class="c-added-products">
+                <h3>ДОБАВЕНИ ПРОДУКТИ (3 броя):</h3>
+                <span class="product-item">Люлка swing star мозайка</span>
+                <span class="product-item">Byox тротинетка furious розов</span>
+                <span class="product-item">Abc design - бебешки колички 2016 3tec plus coral</span>
+                <span class="total-price">Обща стойност: &nbsp;<b>1234.00</b></span>
+                <button type="button" class="btn btn-secondary">Добави</button>
+            </div>
+        </div>
+    </div>
+</section>

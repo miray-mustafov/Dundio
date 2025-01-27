@@ -1,0 +1,96 @@
+#cookie-bar {
+    background: linear-gradient( rgb(183, 122, 202), rgb(185, 149, 196) 50%, rgb(183, 122, 202));
+    height: auto;
+    line-height: 24px;
+    color: var(--color-titles);
+    text-align: center;
+    width: 100%;
+}
+
+#cookie-bar.fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1200
+}
+
+#cookie-bar.fixed.bottom {
+    bottom: 50px;
+    top: auto;
+    left: 360px;
+    right: 360px;
+    width: auto;
+    border-radius: 10px;
+    padding: 20px 40px;
+}
+
+#cookie-bar h4 {
+    font-size: 18px;
+}
+
+#cookie-bar p {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#cookie-bar a {
+    line-height: 1.5;
+    color: var(--color-bg);
+    display: inline-block;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#cookie-bar a:hover {
+    text-decoration: underline;
+}
+
+#cookie-bar .cb-enable {
+    background: var(--color-secondary);
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 15px 55px;
+    color: var(--color-titles);
+    display: block;
+    width: max-content;
+    margin: auto;
+    margin-top: 20px;
+    line-height: 1.2;
+    border: 1px dashed #fff;
+}
+
+
+/* 
+#cookie-bar .cb-enable:hover {
+    background: rgba(54, 179, 155);
+} */
+
+#cookie-bar .cb-disable {
+    background: rgba(130, 84, 174, .8);
+    cursor: pointer;
+}
+
+#cookie-bar .cb-disable:hover {
+    background: rgb(130, 84, 174);
+}
+
+#cookie-bar .cb-policy {
+    background: #0033bb;
+    cursor: pointer;
+}
+
+#cookie-bar .cb-policy:hover {
+    background: #0055dd;
+}
+
+#cookie-bar .cookie-policy-redirect {
+    margin-left: 0px;
+    padding: 4px;
+}
+
+#cookie-bar .cookie-policy-redirect:hover {
+    color: rgba(54, 179, 155)
+}

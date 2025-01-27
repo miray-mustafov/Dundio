@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block content %}
+    <main class="main">
+        <div class="wrapper">
+            <section class="b-registration-form-container">
+                <div class="c-reg-tabs">
+                    <div class="cols cols-no-gutter cols-full">
+                        <div class="col col6of12">
+                            <span class="tab-personal has-flag">Физическо лице</span>
+                        </div>
+                        <div class="col col6of12">
+                            <span class="tab-business">Юридическо лице</span>
+                        </div>
+                    </div>
+                </div>
+                <form id="registerPhysicalUserForm" action="{% url 'register' %}" method="POST"
+                      class="form-personal-acc has-flag">
+                    {# id and method added #}
+                    {% csrf_token %}
+                    <h3 class="title">{% trans 'Създаване на акаунт' %}</h3>
+                    <div class="field field-input">
+                        <div class="form-row">
+                            <span style="color: red">{{ form.username.errors }}</span>
+                            <input type="text" name="username" placeholder="{% trans 'Потребителско име' %}"
+                                   value="{{ form.username.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ form.password.errors }}</span>
+                            <input type="password" name="password" placeholder="{% trans 'Парола' %}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ form.re_password.errors }}</span>
+                            <input type="password" name="re_password" placeholder="{% trans 'Повтори парола' %}">
+                        </div>
+                    </div>
+                    <h3 class="title">{% trans 'Персонална информация' %}</h3>
+                    <div class="field field-input">
+                        <div class="form-row">
+                            <span style="color: red">{{ form.full_name.errors }}</span>
+                            <input type="text" name="full_name" placeholder="Имена"
+                                   value="{{ form.full_name.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ form.email.errors }}</span>
+                            <input type="email" name="email" placeholder="И-мейл"
+                                   value="{{ form.email.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ form.phone_number.errors }}</span>
+                            <input type="text" name='phone_number' placeholder="Телефон за връзка"
+                                   value="{{ form.phone_number.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ form.dundio_club_card.errors }}</span>
+                            <input type="text" name="dundio_club_card" placeholder="Номер на карта Dundio CLUB"
+                                   value="{{ form.dundio_club_card.value|default:'' }}">
+                        </div>
+                    </div>
+                    <h3 class="title">{% trans 'Адреси за доставка' %}</h3>
+                    <div class="field field-input">
+                        <div class="form-row">
+                            <span style="color: red">{{ form.delivery_address.errors }}</span>
+                            <input type="text" name="delivery_address" placeholder="Адрес за доставка"
+                                   value="{{ form.delivery_address.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ form.populated_place.errors }}</span>
+                            <input type="text" name="populated_place" placeholder="Населено място"
+                                   value="{{ form.populated_place.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ form.region.errors }}</span>
+                            <input type="text" name="region" placeholder="Област"
+                                   value="{{ form.region.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ form.postal_code.errors }}</span>
+                            <input type="text" name='postal_code' placeholder="Пощенски код"
+                                   value="{{ form.postal_code.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ form.is_personal_data.errors }}</span>
+                            <div class="choose check">
+                                <input type="checkbox" name="is_personal_data" id="personal-data">
+                                <label for="personal-data">{% trans 'Съгласявам се личните ми данни да бъдат обработени от сайта' %}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <input name="registerPhysicalUserForm" type="submit" class="btn btn-tertiary" value="Регистрация">
+                </form>
+
+                <form id="registerCompanyUserForm" action="{% url 'register' %}" method="POST"
+                      class="form-business-acc">
+                    {% csrf_token %}
+                    <h3 class="title">{% trans 'Създаване на акаунт' %}</h3>
+                    <div class="field field-input">
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.username.errors }}</span>
+                            <input type="text" name="username" placeholder="{% trans 'Потребителско име' %}"
+                                   value="{{ company_form.username.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.password.errors }}</span>
+                            <input type="password" name="password" placeholder="{% trans 'Парола' %}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.re_password.errors }}</span>
+                            <input type="password" name="re_password" placeholder="{% trans 'Повтори парола' %}">
+                        </div>
+                    </div>
+                    <h3 class="title">{% trans 'Информация за фирмата' %}</h3>
+                    <div class="field field-input">
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.full_name.errors }}</span>
+                            <input type="text" name="full_name" placeholder="{% trans "Име на юридическо лице" %}"
+                                   value="{{ company_form.full_name.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.address.errors }}</span>
+                            <input type="text" name="address" placeholder="Адрес по данъчна регистрация"
+                                   value="{{ company_form.address.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.mol.errors }}</span>
+                            <input type="text" name="mol" placeholder="МОЛ"
+                                   value="{{ company_form.mol.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.eik.errors }}</span>
+                            <input type="text" name='eik' placeholder="ЕИК"
+                                   value="{{ company_form.eik.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.dds.errors }}</span>
+                            <input type="text" name="dds" placeholder="ДДС номер"
+                                   value="{{ company_form.dds.value|default:'' }}">
+                        </div>
+                    </div>
+                    <h3 class="title">Лице за контакт</h3>
+                    <div class="field field-input">
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.contact_person.errors }}</span>
+                            <input type="text" name='contact_person' placeholder="Имена"
+                                   value="{{ company_form.contact_person.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.email.errors }}</span>
+                            <input type="email" name='email' placeholder="И-мейл"
+                                   value="{{ company_form.email.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.phone_number.errors }}</span>
+                            <input type="text" name='phone_number' placeholder="Телефон за връзка"
+                                   value="{{ company_form.phone_number.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.dundio_club_card.errors }}</span>
+                            <input type="text" name='dundio_club_card' placeholder="Номер на карта Dundio CLUB"
+                                   value="{{ company_form.dundio_club_card.value|default:'' }}">
+                        </div>
+                    </div>
+                    <h3 class="title">Адреси за доставка</h3>
+                    <div class="field field-input">
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.delivery_address.errors }}</span>
+                            <input type="text" name="delivery_address" placeholder="Адрес"
+                                   value="{{ company_form.delivery_address.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <div class="choose check">
+                                <span style="color: red">{{ company_form.is_no_address_match.errors }}</span>
+                                <input type="checkbox" name="is_no_address_match" id="address-match"
+                                       {% if company_form.is_no_address_match.value %}checked{% endif %}>
+                                <label for="address-match">Адресът за доставка не съвпада с този по данъчна регистрация</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.populated_place.errors }}</span>
+                            <input type="text" name='populated_place' placeholder="Населено място"
+                                   value="{{ company_form.populated_place.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.region.errors }}</span>
+                            <input type="text" name="region" placeholder="Област"
+                                   value="{{ company_form.region.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.postal_code.errors }}</span>
+                            <input type="text" name="postal_code" placeholder="Пощенски код"
+                                   value="{{ company_form.postal_code.value|default:'' }}">
+                        </div>
+                        <div class="form-row">
+                            <span style="color: red">{{ company_form.is_personal_data.errors }}</span>
+                            <div class="choose check">
+                                <input type="checkbox" name="is_personal_data" id="personal-data-1">
+                                <label for="personal-data-1">Съгласявам се личните ми данни да бъдат обработени от
+                                    сайта</label>
+                            </div>
+                        </div>
+                    </div>
+                    <input name='registerCompanyUserForm' type="submit" class="btn btn-tertiary" value="Регистрация">
+                </form>
+            </section>
+        </div>
+    </main>
+{% endblock %}
