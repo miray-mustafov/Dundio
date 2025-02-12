@@ -1,7 +1,5 @@
-from django.http import HttpResponseBadRequest
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
-from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 import uuid
